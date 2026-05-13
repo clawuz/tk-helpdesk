@@ -4,5 +4,24 @@
       "backendId": "tk-helpdesk",
       "source": "."
     }
-  ]
+  ],
+  "hosting": {
+    "site": "tk-helpdesk",
+    "public": "public-static",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "tk-helpdesk",
+          "region": "us-central1",
+          "pinTag": false
+        }
+      }
+    ]
+  }
 }
