@@ -17,5 +17,6 @@ export function getAdminApp(): admin.app.App {
 }
 
 export function getStorage() {
-  return getAdminApp().storage().bucket()
+  const bucket = process.env.FIREBASE_STORAGE_BUCKET ?? 'tk-helpdesk-renders'
+  return getAdminApp().storage().bucket(bucket)
 }
