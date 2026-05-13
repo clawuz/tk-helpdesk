@@ -10,3 +10,5 @@ env:
     secret: FIREBASE_STORAGE_BUCKET
   - variable: FIREBASE_SERVICE_ACCOUNT_KEY
     secret: FIREBASE_SERVICE_ACCOUNT_KEY
+  - variable: NODE_ENV
+    value: production
