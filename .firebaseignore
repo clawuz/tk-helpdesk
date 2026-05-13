@@ -1,0 +1,9 @@
+.git
+node_modules
+.next
+*.log
+.DS_Store
+tsconfig.tsbuildinfo
+.env*
+deploy.sh
+cors.json
