@@ -526,10 +526,11 @@ export function HelpdeskTab({ initialProject }: HelpdeskTabProps = {}) {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'PNG render hatası')
-      const a = document.createElement('a')
-      a.href = `/api/download-still/${data.id}`
       const catLabel = getHelpdeskCategory(state.categoryId)?.label ?? state.categoryId
-      a.download = `${catLabel}-${state.format.replace(':', 'x')}.png`
+      const filename = `${catLabel}-${state.format.replace(':', 'x')}.png`
+      const a = document.createElement('a')
+      a.href = `/api/download-still/${data.id}?filename=${encodeURIComponent(filename)}`
+      a.download = filename
       a.click()
       saveToHistory(data.id, 0)
     } catch (err) {
@@ -853,7 +854,13 @@ export function HelpdeskTab({ initialProject }: HelpdeskTabProps = {}) {
         {videoId && (
           <div className="text-xs text-green-700 bg-green-50 border border-green-200 rounded-md p-3 flex items-center justify-between">
             <span>Video hazır!</span>
-            <a href={`/api/download/${videoId}`} download className="underline font-semibold">İndir</a>
+            <a
+              href={`/api/download/${videoId}?filename=${encodeURIComponent(`${getHelpdeskCategory(state.categoryId)?.label ?? state.categoryId}-${state.format.replace(':', 'x')}.mp4`)}`}
+              download
+              className="underline font-semibold"
+            >
+              İndir
+            </a>
           </div>
         )}
       </div>

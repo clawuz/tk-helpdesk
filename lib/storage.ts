@@ -13,12 +13,13 @@ export async function uploadFile(localPath: string, ext: 'png' | 'mp4'): Promise
   return id
 }
 
-export async function getSignedUrl(id: string, ext: 'png' | 'mp4'): Promise<string> {
+export async function getSignedUrl(id: string, ext: 'png' | 'mp4', downloadFilename?: string): Promise<string> {
   const bucket = getStorage()
   const file = bucket.file(`renders/${id}.${ext}`)
   const [url] = await file.getSignedUrl({
     action: 'read',
     expires: Date.now() + 60 * 60 * 1000,
+    ...(downloadFilename ? { promptSaveAs: downloadFilename } : {}),
   })
   return url
 }
